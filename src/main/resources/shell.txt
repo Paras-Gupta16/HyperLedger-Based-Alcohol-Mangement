@@ -1,0 +1,65 @@
+
+./network.sh down
+
+./network.sh deployCC \
+  -c alcohol-network \
+  -ccn alcohol \
+  -ccp /mnt/e/Alochol_HyperLedger_ChainCode \
+  -ccl java
+
+
+
+export PATH=$PWD/../bin:$PATH
+export FABRIC_CFG_PATH=$PWD/../config/
+
+export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID=Org1MSP
+export CORE_PEER_ADDRESS=localhost:7051
+
+export CORE_PEER_MSPCONFIGPATH=$PWD/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+
+export CORE_PEER_TLS_ROOTCERT_FILE=$PWD/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+
+
+
+// CA Environment
+
+export PATH=$PWD/../bin:$PATH
+export FABRIC_CFG_PATH=$PWD/../config
+
+export FABRIC_CA_CLIENT_HOME=$PWD/organizations/peerOrganizations/org1.example.com/
+
+
+// Register a manufacturer
+
+fabric-ca-client register \
+  --caname ca-org1 \
+  --id.name manufacturer1 \
+  --id.secret manufacturerpw \
+  --id.type client \
+  --id.attrs 'actorId=MFG001:ecert,actorRole=MANUFACTURER:ecert' \
+  --tls.certfiles "$PWD/organizations/fabric-ca/org1/tls-cert.pem"
+
+
+  // docker files
+  docker start orderer.example.com \
+  peer0.org1.example.com \
+  peer0.org2.example.com \
+  ca_org1 \
+  ca_org2 \
+  ca_orderer
+
+
+  // Environment Variables
+
+  export PATH=$PWD/../bin:$PATH
+  export FABRIC_CFG_PATH=$PWD/../config/
+
+  export CORE_PEER_TLS_ENABLED=true
+  export CORE_PEER_LOCALMSPID=Org1MSP
+  export CORE_PEER_ADDRESS=localhost:7051
+
+  export CORE_PEER_MSPCONFIGPATH=$PWD/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+
+  export CORE_PEER_TLS_ROOTCERT_FILE=$PWD/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+
