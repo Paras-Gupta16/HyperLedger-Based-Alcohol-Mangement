@@ -12,6 +12,7 @@ public class AlcoholBatch {
     private String unit;
     private String currentOwner;
     private String status;
+    private String pendingTransferId;
     private String createdAt;
     private String updatedAt;
     private String ethereumTxHash;
@@ -88,6 +89,14 @@ public class AlcoholBatch {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPendingTransferId() {
+        return pendingTransferId;
+    }
+
+    public void setPendingTransferId(String pendingTransferId) {
+        this.pendingTransferId = pendingTransferId;
     }
 
     public String getCreatedAt() {
